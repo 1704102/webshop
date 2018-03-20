@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://nl.hu.iac/berichten/request"
+           elementFormDefault="qualified"
+           targetNamespace="http://nl.hu.iac/berichten/request">
+
+    <xs:element name="loginRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice>
+                    <xs:element name="email" type="emailType"/>
+                    <xs:element name="username" type="usernameType"/>
+                </xs:choice>
+                <xs:element name="password" type="passwordType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="addRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice>
+                    <xs:element name="email" type="emailType"/>
+                    <xs:element name="username" type="usernameType"/>
+                </xs:choice>
+                <xs:element name="password" type="passwordType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:simpleType name="emailType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[A-z]{1,10}\.[A-z]{1,10}@student\.hu\.nl"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="usernameType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[A-z]{1,25}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="passwordType">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="8"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>
