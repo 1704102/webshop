@@ -19,6 +19,7 @@ public class Webshop {
 
     public Webshop(){
         products = pDatabase.getProducts();
+        customers = pDatabase.getCustomers();
     }
 
     public Product getProductById(int id){

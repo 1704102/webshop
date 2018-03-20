@@ -8,7 +8,6 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:choice>
-                    <xs:element name="email" type="emailType"/>
                     <xs:element name="username" type="usernameType"/>
                 </xs:choice>
                 <xs:element name="password" type="passwordType"/>
@@ -20,19 +19,12 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:choice>
-                    <xs:element name="email" type="emailType"/>
                     <xs:element name="username" type="usernameType"/>
                 </xs:choice>
                 <xs:element name="password" type="passwordType"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
-    <xs:simpleType name="emailType">
-        <xs:restriction base="xs:string">
-            <xs:pattern value="[A-z]{1,10}\.[A-z]{1,10}@student\.hu\.nl"/>
-        </xs:restriction>
-    </xs:simpleType>
 
     <xs:simpleType name="usernameType">
         <xs:restriction base="xs:string">

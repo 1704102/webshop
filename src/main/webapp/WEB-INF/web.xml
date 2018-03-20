@@ -28,3 +28,21 @@
 
 
 </web-app>
+<web-app>
+<display-name>Archetype Created Web Application</display-name>
+
+<listener>
+    <listener-class>com.sun.xml.ws.transport.http.servlet.WSServletContextListener</listener-class>
+</listener>
+
+<servlet>
+    <servlet-name>jaxws-soap</servlet-name>
+    <display-name>The JAX-WS servlet</display-name>
+    <description>JAX-WS endpoint</description>
+    <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>jaxws-soap</servlet-name>
+    <url-pattern>/soap</url-pattern>
+</servlet-mapping>
+</web-app>

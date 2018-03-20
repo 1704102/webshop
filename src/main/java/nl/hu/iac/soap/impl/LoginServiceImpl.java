@@ -1,37 +1,33 @@
 package nl.hu.iac.soap.impl;
 
-import java.util.ArrayList;
+import com.webshop.Database.ProductDatabase;
+import com.webshop.model.Customer;
+import nl.hu.iac.soap.wsinterface.*;
 
 import javax.jws.WebService;
-
-import nl.hu.iac.soap.wsinterface.AddFault;
-import nl.hu.iac.soap.wsinterface.AddFault_Exception;
-import nl.hu.iac.soap.wsinterface.AddRequest;
-import nl.hu.iac.soap.wsinterface.AddResponse;
-import nl.hu.iac.soap.wsinterface.LoginFault;
-import nl.hu.iac.soap.wsinterface.LoginFault_Exception;
-import nl.hu.iac.soap.wsinterface.LoginRequest;
-import nl.hu.iac.soap.wsinterface.LoginResponse;
-import nl.hu.iac.soap.wsinterface.LoginServiceInterface;
+import java.util.ArrayList;
+import com.webshop.Database.DatabaseHelper;
 
 @WebService(endpointInterface = "nl.hu.iac.soap.wsinterface.LoginServiceInterface")
 public class LoginServiceImpl implements LoginServiceInterface {
 
     //Lijst met accounts
-    private static final ArrayList<Account> accounts = new ArrayList<Account>();
+    ProductDatabase pDatabase = new ProductDatabase();
+    private ArrayList<Customer> accounts = pDatabase.getCustomers();
 
     @Override
     public LoginResponse checkCredentials(LoginRequest request) throws LoginFault_Exception {
         LoginResponse response = new LoginResponse();
 
+
         try {
-            Account user = getUser(request.getUsername(),request.getEmail());
+            Customer user = getUser(request.getUsername(), request.getPassword());
 
             // Check of de request overeenkomt met de accountgegevens
-            if(user != null && user.getPassword().equals(request.getPassword())) {
+            if (user != null && user.getPassword().equals(request.getPassword())) {
                 response.setSucces("Succesvol ingelogd!");
             } else {
-                response.setSucces(user.getUsername() + user.getPassword() + "niet correct");
+                response.setSucces(user.getName() + user.getPassword() + "niet correct");
 
             }
 
@@ -42,9 +38,8 @@ public class LoginServiceImpl implements LoginServiceInterface {
             LoginFault loginFault = new LoginFault();
             loginFault.setErrorCode((short) 1);
             loginFault.setMessage("De gegevens die u heeft ingevoerd zijn niet correct.");
-            LoginFault_Exception fault = new LoginFault_Exception(
+            throw new LoginFault_Exception(
                     "Er ging iets mis bij het inloggen", loginFault);
-            throw fault;
         }
 
         return response;
@@ -55,42 +50,38 @@ public class LoginServiceImpl implements LoginServiceInterface {
     public AddResponse addCredentials(AddRequest addRequest) throws AddFault_Exception {
         AddResponse response = new AddResponse();
 
-        try{
-            Account user = new Account();
+        try {
+            Customer user = new Customer();
 
             String username = addRequest.getUsername();
-            String email = addRequest.getEmail();
             String password = addRequest.getPassword();
 
-            user.setUsername(username);
-            user.setEmail(email);
+            user.setName(username);
             user.setPassword(password);
-
+            pDatabase.addCustomer(user);
             accounts.add(user);
 
             response.setSucces("Succesvol geregistreerd!");
-        } catch (RuntimeException e){
+        } catch (RuntimeException e) {
             AddFault fault = new AddFault();
             fault.setErrorCode((short) 1);
             fault.setMessage("De gegevens die u heeft ingevoerd zijn niet correct.");
-            AddFault_Exception addfault = new AddFault_Exception("Er ging iets mis bij het registreren", fault);
-            throw addfault;
+            throw new AddFault_Exception("Er ging iets mis bij het registreren", fault);
         }
 
         return response;
     }
 
-    private Account getUser(String username, String email){
-        Account user = null;
+    private Customer getUser(String username, String email) {
+        Customer user = null;
 
-        for(Account account : accounts){
-            if(account.getUsername() != null && account.getUsername().equals(username)){
-                return account;
-            } else if (account.getEmail() != null && account.getEmail().equals(email)){
+        for (Customer account : accounts) {
+            if (account.getName() != null && account.getName().equals(username)) {
                 return account;
             }
-        }
 
-        return user;
+            return user;
+        }
+        return null;
     }
 }
