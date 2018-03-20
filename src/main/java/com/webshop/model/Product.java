@@ -22,4 +22,16 @@ public class Product {
     public String getCatagorie(){
         return catagorie;
     }
+
+    public int getPrijs() {
+        return prijs;
+    }
+
+    public String getNaam() {
+        return naam;
+    }
+
+    public String getOmschrijving() {
+        return omschrijving;
+    }
 }

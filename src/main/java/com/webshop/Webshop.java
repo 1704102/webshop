@@ -21,6 +21,14 @@ public class Webshop {
         products = pDatabase.getProducts();
     }
 
+    public ArrayList<Product> getProducts(){
+        ArrayList<Product> output = new ArrayList<>();
+        for (Product product : products){
+                output.add(product);
+        }
+        return output;
+    }
+
     public Product getProductById(int id){
        for (Product product : products){
            if(product.getId() == id){
