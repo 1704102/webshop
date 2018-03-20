@@ -1,11 +1,9 @@
 package com.webshop;
 
-import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
 import com.webshop.Database.ProductDatabase;
 import com.webshop.model.Customer;
 import com.webshop.model.Product;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -41,7 +39,7 @@ public class Webshop {
     public ArrayList<Product> getProductsByCatagory(String catagory){
         ArrayList<Product> output = new ArrayList<>();
         for (Product product : products){
-            if(product.getCatagorie().equals(catagory)){
+            if(product.getCatagory().equals(catagory)){
                 output.add(product);
             }
         }

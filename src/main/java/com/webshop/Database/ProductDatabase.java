@@ -18,7 +18,7 @@ public class ProductDatabase extends DatabaseHelper {
         try {
             ResultSet s = select("select * from product");
             while (s.next()) {
-                products.add(new Product(s.getInt("id"), s.getInt("prijs"), s.getString("naam"),s.getString("omschrijving"),s.getString("catagorie")));
+                products.add(new Product(s.getInt("id"), s.getInt("prijs"), s.getString("naam"),s.getString("omschrijving"),s.getString("catagorie"),s.getString("plaatje")));
             }
         }catch (Exception e){
             e.printStackTrace();

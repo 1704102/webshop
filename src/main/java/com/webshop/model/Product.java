@@ -6,35 +6,40 @@ import java.util.ArrayList;
  * Created by marti on 20-3-2018.
  */
 public class Product {
-    int id, prijs;
-    String naam, omschrijving, catagorie;
+    int id, price;
+    String name, description, catagory, picture;
     ArrayList<String> catagorys;
 
-    public Product(int id, int prijs, String naam, String omschrijving, String catagorie) {
+    public Product(int id, int price, String name, String description, String catagory, String picture) {
         this.id = id;
-        this.prijs = prijs;
-        this.naam = naam;
-        this.omschrijving = omschrijving;
-        this.catagorie = catagorie;
+        this.price = price;
+        this.name = name;
+        this.description = description;
+        this.catagory = catagory;
+        this.picture = picture;
     }
 
     public int getId(){
         return id;
     }
 
-    public String getCatagorie(){
-        return catagorie;
+    public String getCatagory(){
+        return catagory;
     }
 
-    public int getPrijs() {
-        return prijs;
+    public int getPrice() {
+        return price;
     }
 
-    public String getNaam() {
-        return naam;
+    public String getName() {
+        return name;
     }
 
-    public String getOmschrijving() {
-        return omschrijving;
+    public String getDescription() {
+        return description;
+    }
+
+    public String getPicture() {
+        return picture;
     }
 }

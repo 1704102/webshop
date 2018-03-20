@@ -32,22 +32,28 @@ public class ProductResource {
         for (int i = 0; i < products.size(); i++) {
             JsonObjectBuilder job = Json.createObjectBuilder();
             job.add("id", products.get(i).getId());
-            job.add("name", products.get(i).getNaam());
-            job.add("price", products.get(i).getPrijs());
+            job.add("name", products.get(i).getName());
+            job.add("price", products.get(i).getPrice());
+            job.add("picture", products.get(i).getPicture());
             jab.add(job);
         }
         JsonArray array = jab.build();
         return array.toString();
-
-
-
     }
 
     @Path("/id/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String Login(@PathParam("id") int id) {
-        return shop.getProductById(id).toString();
+        Product product = shop.getProductById(id);
+        JsonObjectBuilder job = Json.createObjectBuilder();
+        job.add("id", product.getId());
+        job.add("name", product.getName());
+        job.add("price", product.getPrice());
+        job.add("description", product.getDescription());
+        job.add("catagory", product.getCatagory());
+        job.add("picture", product.getPicture());
+        return job.build().toString();
 
     }
 
@@ -55,7 +61,18 @@ public class ProductResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String Login(@PathParam("catagory") String catagory) {
-        return shop.getProductsByCatagory(catagory).toString();
+        ArrayList<Product> products = shop.getProducts();
+        JsonArrayBuilder jab = Json.createArrayBuilder();
+        for (int i = 0; i < products.size(); i++) {
+            JsonObjectBuilder job = Json.createObjectBuilder();
+            job.add("id", products.get(i).getId());
+            job.add("name", products.get(i).getName());
+            job.add("price", products.get(i).getPrice());
+            job.add("picture", products.get(i).getPicture());
+            jab.add(job);
+        }
+        JsonArray array = jab.build();
+        return array.toString();
 
     }
 }
