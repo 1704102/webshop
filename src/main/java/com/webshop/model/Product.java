@@ -1,11 +1,14 @@
 package com.webshop.model;
 
+import java.util.ArrayList;
+
 /**
  * Created by marti on 20-3-2018.
  */
 public class Product {
     int id, prijs;
     String naam, omschrijving, catagorie;
+    ArrayList<String> catagorys;
 
     public Product(int id, int prijs, String naam, String omschrijving, String catagorie) {
         this.id = id;
