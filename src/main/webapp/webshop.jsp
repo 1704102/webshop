@@ -33,7 +33,7 @@
                 "<tr name = + + >" +
                 "<td onclick=openProduct("+ product.id +"); class='clickable' id='" + product.id + "'>" + product.name + "</td>" +
                 "<td>" + product.price + "</td>" +
-                "<td> <img src='" + product.picture + "' alt='Img not loaded' id='imgsize'/></td>" +
+                "<td> <img src='images/" + product.picture + "' alt='Img not loaded' id='imgsize'/></td>" +
                 "</tr>")
         }})</script>
 				</table>

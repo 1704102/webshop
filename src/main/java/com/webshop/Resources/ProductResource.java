@@ -3,12 +3,10 @@ package com.webshop.Resources;
 import com.webshop.Webshop;
 import com.webshop.model.Product;
 
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObjectBuilder;
+import javax.json.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.io.StringReader;
 import java.util.ArrayList;
 
 
@@ -57,6 +55,15 @@ public class ProductResource {
 
     }
 
+    @Path("/login/{username}/{password}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public int Login(@PathParam("username") String username,@PathParam("password") String password) {
+
+        return shop.getpDatabase().login(username, password);
+
+    }
+
     @Path("/catagory/{catagory}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -74,5 +81,24 @@ public class ProductResource {
         JsonArray array = jab.build();
         return array.toString();
 
+    }
+
+    @Path("/add/{par}")
+    @POST
+    public void addProduct(@PathParam("par") String product){
+        JsonReader jsonReader = Json.createReader(new StringReader(product));
+        JsonObject object = jsonReader.readObject();
+        jsonReader.close();
+        shop.getpDatabase().addProduct(object);
+        shop.getProducts().add(shop.getpDatabase().getProduct(object.getString("name")));
+    }
+
+    @Path("/addOrder/{par}")
+    @POST
+    public void addOrder(@PathParam("par") String order){
+        JsonReader jsonReader = Json.createReader(new StringReader(order));
+        JsonObject object = jsonReader.readObject();
+        jsonReader.close();
+        shop.addOrder(object);
     }
 }

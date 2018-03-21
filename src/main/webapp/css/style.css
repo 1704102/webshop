@@ -56,6 +56,8 @@ body{
 }
 #tabstyle{width:100%;}
 #wr40{width:40%;}
+#wr60{width:60%;}
+#wr10{width:10%;}
 #wr20{width:20%;}
 #imgsize{
 	max-width: 100%;
@@ -65,3 +67,7 @@ th{border-style: solid;font-size: 60px; text-align: center;}
 
 .clickable{
 	cursor: pointer;}
+
+.imgsize2{
+	width: 50px;
+}

@@ -4,6 +4,7 @@ import com.webshop.Database.ProductDatabase;
 import com.webshop.model.Customer;
 import com.webshop.model.Product;
 
+import javax.json.JsonObject;
 import java.util.ArrayList;
 
 /**
@@ -46,6 +47,11 @@ public class Webshop {
         return output;
     }
 
+    public ProductDatabase getpDatabase() {
+        return pDatabase;
+    }
 
-
+    public void addOrder(JsonObject object) {
+        pDatabase.addOrder(object);
+    }
 }

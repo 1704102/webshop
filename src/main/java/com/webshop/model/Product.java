@@ -6,13 +6,14 @@ import java.util.ArrayList;
  * Created by marti on 20-3-2018.
  */
 public class Product {
-    int id, price;
+    int id;
+    double price;
     String name, description, catagory, picture;
     ArrayList<String> catagorys;
 
-    public Product(int id, int price, String name, String description, String catagory, String picture) {
+    public Product(int id, double price, String name, String description, String catagory, String picture) {
         this.id = id;
-        this.price = price;
+        this.price = Math.round(price * 100.0) / 100.0;
         this.name = name;
         this.description = description;
         this.catagory = catagory;
@@ -27,7 +28,7 @@ public class Product {
         return catagory;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
