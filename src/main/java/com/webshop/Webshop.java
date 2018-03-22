@@ -2,6 +2,7 @@ package com.webshop;
 
 import com.sun.org.apache.xml.internal.serialize.OutputFormat;
 import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
+import com.webshop.Database.Aanbieding;
 import com.webshop.Database.ProductDatabase;
 import com.webshop.model.Customer;
 import com.webshop.model.Product;
@@ -30,9 +31,15 @@ public class Webshop {
 
     ArrayList<Customer> customers;
     ArrayList<Product> products;
+    ArrayList<Aanbieding> aanbiedings;
 
     public Webshop(){
         products = pDatabase.getProducts();
+        aanbiedings = getpDatabase().getAanbiedingen();
+        aanbiedings.forEach(e->{
+            getProductById(e.getId()).setAanbieding(true);
+            getProductById(e.getId()).setPrice(e.getPrijs());
+        });
     }
 
     public ArrayList<Product> getProducts(){
@@ -50,6 +57,16 @@ public class Webshop {
             }
         }
         return null;
+    }
+
+    public ArrayList<Product> getAanbiedingen(){
+        ArrayList<Product> output = new ArrayList<>();
+        for (Product product : products){
+            if(product.isAanbieding() == true){
+                output.add(product);
+            }
+        }
+        return output;
     }
 
     public ArrayList<Product> getProductsByCatagory(String catagory){

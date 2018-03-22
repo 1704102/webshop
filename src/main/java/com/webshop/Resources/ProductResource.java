@@ -25,8 +25,25 @@ public class ProductResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String Login() {
-        shop.callSoap();
         ArrayList<Product> products = shop.getProducts();
+        JsonArrayBuilder jab = Json.createArrayBuilder();
+        for (int i = 0; i < products.size(); i++) {
+            JsonObjectBuilder job = Json.createObjectBuilder();
+            job.add("id", products.get(i).getId());
+            job.add("name", products.get(i).getName());
+            job.add("price", products.get(i).getPrice());
+            job.add("picture", products.get(i).getPicture());
+            jab.add(job);
+        }
+        JsonArray array = jab.build();
+        return array.toString();
+    }
+
+    @GET
+    @Path("/aanbieding")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String Aanbieding() {
+        ArrayList<Product> products = shop.getAanbiedingen();
         JsonArrayBuilder jab = Json.createArrayBuilder();
         for (int i = 0; i < products.size(); i++) {
             JsonObjectBuilder job = Json.createObjectBuilder();

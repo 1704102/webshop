@@ -7,6 +7,7 @@ import sun.security.util.Resources_sv;
 
 import javax.json.JsonObject;
 import java.lang.reflect.Array;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -63,16 +64,21 @@ public class ProductDatabase extends DatabaseHelper {
 
     public int login(String username, String password) {
         connect();
-        ResultSet s = select(String.format("select * from klant where username = '%s' and password = '%s'",username,password));
+        int id = 0;
         try {
-            while (s.next()){
-                return s.getInt("id");
+            String sql = "select * from klant where username = ? and password = ?";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, username);
+            pstmt.setString(2, password);
+            ResultSet s = pstmt.executeQuery();
+            while (s.next()) {
+                id = s.getInt("id");
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            disconnect();
+        }catch (Exception e){
+
         }
-        disconnect();
-        return 0;
+        return id;
     }
 
     public void addOrder(String user, ArrayList<OrderLine> orderLines) {
@@ -102,5 +108,18 @@ public class ProductDatabase extends DatabaseHelper {
         System.out.println("update product set " + subquery);
         execute("update product set " + subquery);
         disconnect();
+    }
+
+    public ArrayList<Aanbieding> getAanbiedingen(){
+        ArrayList<Aanbieding> aanbiedingen = new ArrayList();
+        connect();
+        try{
+            ResultSet s = select("select * from aanbieding");
+            while (s.next()){
+                aanbiedingen.add(new Aanbieding(s.getInt("product_id"), s.getDouble("nieuwe_prijs")));
+            }
+        }catch (Exception e){}
+        disconnect();
+        return aanbiedingen;
     }
 }

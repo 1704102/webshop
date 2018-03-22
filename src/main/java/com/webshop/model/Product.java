@@ -10,6 +10,7 @@ public class Product {
     double price;
     String name, description, catagory, picture;
     ArrayList<String> catagorys;
+    boolean aanbieding = false;
 
     public Product(int id, double price, String name, String description, String catagory, String picture) {
         this.id = id;
@@ -42,5 +43,17 @@ public class Product {
 
     public String getPicture() {
         return picture;
+    }
+
+    public boolean isAanbieding() {
+        return aanbieding;
+    }
+
+    public void setAanbieding(boolean aanbieding) {
+        this.aanbieding = aanbieding;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

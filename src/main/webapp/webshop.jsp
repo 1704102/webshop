@@ -7,6 +7,7 @@
 </head>
 <body>
 <div id = "sidebar">
+	<div class="subitem" id="welkom" onclick="redirect(this.id)">Welkoms pagina</div>
 	<div class="subitem"id="*" onclick="redirect(this.id)">Webshop	</div>
 	<div class="subitem"id="eten" onclick="redirect(this.id)">Eten</div>
 	<div class="subitem" id="electronica" onclick="redirect(this.id)">Electronica</div>
@@ -30,9 +31,11 @@
 <script>
     function redirect(catagory) {
         if(catagory != "winkelwagen" && catagory != "add_order"){sessionStorage.setItem("catagory", catagory);
-            window.location.replace('http://localhost:3030/webshop.jsp')}else if (catagory == "add_product") {
-            window.location.replace('http://localhost:3030/AddProduct.jsp')
-		}else if () {window.location.replace('http://localhost:3030/winkelwagen.jsp')}
+            window.location.replace('http://localhost:3030/webshop.jsp')}if (catagory == "add_product") {
+            window.location.replace('http://localhost:3030/Addproduct.jsp')
+        }if (catagory == "winkelwagen") {window.location.replace('http://localhost:3030/winkelwagen.jsp')}if(catagory == "welkom"){
+            window.location.replace('http://localhost:3030/welkomspagina.jsp')
+        }
     }
     loadPage()
     function loadPage() {

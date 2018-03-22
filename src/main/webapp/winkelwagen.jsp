@@ -46,19 +46,24 @@
             $("#total").append(total1);
         }
         function redirect(catagory) {
-			sessionStorage.setItem("catagory", catagory);
-            window.location.replace('http://localhost:3030/webshop.jsp')
+            if(catagory != "winkelwagen" && catagory != "add_order"){sessionStorage.setItem("catagory", catagory);
+                window.location.replace('http://localhost:3030/webshop.jsp')}if (catagory == "add_product") {
+                window.location.replace('http://localhost:3030/Addproduct.jsp')
+            }if (catagory == "winkelwagen") {window.location.replace('http://localhost:3030/winkelwagen.jsp')}if(catagory == "welkom"){
+                window.location.replace('http://localhost:3030/welkomspagina.jsp')
+            }
         }
 	</script>
 	<div id = "sidebar">
-		<li><a id="*" onclick="redirect(this.id)">Webshop</a>	</li>
-		<li class="subitem"><a id="eten" onclick="redirect(this.id)">Eten</a></li>
-		<li class="subitem"><a id="electronica" onclick="redirect(this.id)">Electronica</a></li>
-		<li class="subitem"><a id="stofzuiger" onclick="redirect(this.id)">Stofzuigers</a></li>
-		<li class="subitem"><a id="schoenen" onclick="redirect(this.id)">Schoenen</a></li>
-		<li class="subitem"><a id="kleren" onclick="redirect(this.id)">Kleren</a></li>
-		<li><a href="winkelwagen.jsp" onclick="redirect(this.id)">Winkelwagen</a></li>
-		<li><a href="Addproduct.jsp" onclick="redirect(this.id)">Product toevoegen</a></li>
+		<div class="subitem" id="welkom" onclick="redirect(this.id)">Welkoms pagina</div>
+		<div class="subitem"id="*" onclick="redirect(this.id)">Webshop	</div>
+		<div class="subitem"id="eten" onclick="redirect(this.id)">Eten</div>
+		<div class="subitem" id="electronica" onclick="redirect(this.id)">Electronica</div>
+		<div class="subitem" id="stofzuiger" onclick="redirect(this.id)">Stofzuigers</div>
+		<div class="subitem" id="schoenen" onclick="redirect(this.id)">Schoenen</div>
+		<div class="subitem" id="kleren" onclick="redirect(this.id)">Kleren</div>
+		<div class="subitem" id="winkelwagen" onclick="redirect(this.id)">Winkelwagen</div>
+		<div class="subitem" id="add_product" onclick="redirect(this.id)">Product toevoegen</div>
 	</div>
 	<div id = "topbar"><div id= "topbar2">winkelwagen</div></div>
 		<div id = "mainBody">
