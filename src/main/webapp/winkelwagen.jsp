@@ -8,8 +8,9 @@
 	<body>
 	<script>
         function loadcart() {
+            var total1 = 0;
             var shoppingcart = JSON.parse(sessionStorage.getItem("shoppingcart"));
-            if (shoppingcart != undefined){
+            if (shoppingcart != []){
                 $("#tabstyle").empty();
                 $("#tabstyle").append(
                     "<tr> " +
@@ -24,6 +25,7 @@
                     var price =parseFloat(shoppingcart[i].price.substr(1)) ;
                     var aantal = parseInt(shoppingcart[i].aantal);
                     var total = price * aantal;
+                    total1 += total;
                     $("#tabstyle").append(
                         "<tr>" +
                         "<td>" + shoppingcart[i].name + "</td>" +
@@ -34,12 +36,29 @@
                         "</tr>"
 
                     )
+                    $("#total").empty()
+					$("#total").append(total1);
                 }
-            }
+            }else {
+                $("#tabstyle").empty();
+			}
+            $("#total").empty();
+            $("#total").append(total1);
+        }
+        function redirect(catagory) {
+			sessionStorage.setItem("catagory", catagory);
+            window.location.replace('http://localhost:3030/webshop.jsp')
         }
 	</script>
 	<div id = "sidebar">
-	Hyperlinks komen hier
+		<li><a id="*" onclick="redirect(this.id)">Webshop</a>	</li>
+		<li class="subitem"><a id="eten" onclick="redirect(this.id)">Eten</a></li>
+		<li class="subitem"><a id="electronica" onclick="redirect(this.id)">Electronica</a></li>
+		<li class="subitem"><a id="stofzuiger" onclick="redirect(this.id)">Stofzuigers</a></li>
+		<li class="subitem"><a id="schoenen" onclick="redirect(this.id)">Schoenen</a></li>
+		<li class="subitem"><a id="kleren" onclick="redirect(this.id)">Kleren</a></li>
+		<li><a href="winkelwagen.jsp" onclick="redirect(this.id)">Winkelwagen</a></li>
+		<li><a href="Addproduct.jsp" onclick="redirect(this.id)">Product toevoegen</a></li>
 	</div>
 	<div id = "topbar"><div id= "topbar2">winkelwagen</div></div>
 		<div id = "mainBody">
@@ -47,16 +66,8 @@
 				<table id = "tabstyle">
 
 				</table>
-				Totaalprijs : Prijs
-				<p>
-				Straatnaam<br>
-				<input type ='text' id='Adress'></input><br>
-				Huisnummer<br>
-				<input type ='text' id='huisnummer'></input><br>
-				Stad<br>
-				<input type ='text' id='stad'></input>
-				</p>
-				<button type = "button">submit</button>
+
+				<button type = "button" onclick="submitOrder()" >submit</button>
 			</div>
 		</div>
 	</div>
@@ -80,12 +91,13 @@
 
         function submitOrder() {
 		    var shoppingcart = JSON.parse(sessionStorage.getItem("shoppingcart"));
-		    var userData = {""}
-            var product = {"name" : $("#name").val(), "price" : $("#price").val(),"image" : $("#image").val(), "catagory" : $("#catagory").val(), "description" : $("#description").val()};
+		    var user = sessionStorage.getItem("user")
             $.ajax({
                 type: "POST",
-                url: "rest/product/add/" + JSON.stringify(product),
+                url: "rest/product/addOrder/" + user + "/" + JSON.stringify(shoppingcart),
             });
+		    sessionStorage.setItem("shoppingcart", "[]");
+		    loadcart();
         }
 
 	</script>

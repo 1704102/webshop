@@ -71,3 +71,10 @@ th{border-style: solid;font-size: 60px; text-align: center;}
 .imgsize2{
 	width: 50px;
 }
+.subitem{
+	position: relative;
+	left:30px;
+}
+.subitem:hover{
+	cursor: pointer;
+}

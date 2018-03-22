@@ -1,6 +1,7 @@
 package com.webshop.Database;
 
 import com.sun.org.apache.regexp.internal.RE;
+import com.webshop.OrderLine;
 import com.webshop.model.Product;
 import sun.security.util.Resources_sv;
 
@@ -32,7 +33,7 @@ public class ProductDatabase extends DatabaseHelper {
 
     public void addProduct(JsonObject object){
         connect();
-        execute(String.format("insert into product (naam, prijs, omschrijving, catagory, plaatje) values ('%s','%s','%s','%s','%s')", object.getString("name"), object.getString("price"), object.getString("description"), object.getString("catagory"), object.getString("image")));
+        execute(String.format("insert into product (naam, prijs, omschrijving, catagory, plaatje) values ('%s','%s','%s','nieuw','%s')", object.getString("name"), object.getString("price"), object.getString("description"), object.getString("image")));
         disconnect();
     }
 
@@ -52,8 +53,12 @@ public class ProductDatabase extends DatabaseHelper {
     }
 
 
-    public void addOrder(JsonObject object) {
-        //execute();
+    public void deleteProduct(int id) {
+       connect();
+       try {
+           execute(String.format("delete from product where id = %d", id));
+       }catch (Exception e){e.printStackTrace();}
+       disconnect();
     }
 
     public int login(String username, String password) {
@@ -68,5 +73,34 @@ public class ProductDatabase extends DatabaseHelper {
         }
         disconnect();
         return 0;
+    }
+
+    public void addOrder(String user, ArrayList<OrderLine> orderLines) {
+        connect();
+        try{
+           execute(String.format("insert into bestelling (klant_id, status) values (%d, 'new') ",Integer.parseInt(user)));
+           ResultSet s = select("select max(id) as id from bestelling");
+           int id = 0;
+           while (s.next()){
+               id = s.getInt("id");
+           }
+            int finalId = id;
+            orderLines.forEach(e->{
+               execute(String.format("insert into bestellingsregel (order_id, product_id, aantal) values (%d,%d,%d)", finalId, e.getProduct().getId(), e.getAmount()));
+           });
+
+
+
+        }catch (Exception e){
+
+        }
+        disconnect();
+    }
+
+    public void alterProduct(String subquery) {
+        connect();
+        System.out.println("update product set " + subquery);
+        execute("update product set " + subquery);
+        disconnect();
     }
 }

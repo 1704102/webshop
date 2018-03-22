@@ -25,6 +25,7 @@ public class ProductResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String Login() {
+        shop.callSoap();
         ArrayList<Product> products = shop.getProducts();
         JsonArrayBuilder jab = Json.createArrayBuilder();
         for (int i = 0; i < products.size(); i++) {
@@ -68,7 +69,7 @@ public class ProductResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String Login(@PathParam("catagory") String catagory) {
-        ArrayList<Product> products = shop.getProducts();
+        ArrayList<Product> products = shop.getProductsByCatagory(catagory);
         JsonArrayBuilder jab = Json.createArrayBuilder();
         for (int i = 0; i < products.size(); i++) {
             JsonObjectBuilder job = Json.createObjectBuilder();
@@ -76,6 +77,7 @@ public class ProductResource {
             job.add("name", products.get(i).getName());
             job.add("price", products.get(i).getPrice());
             job.add("picture", products.get(i).getPicture());
+            job.add("catagory", products.get(i).getCatagory());
             jab.add(job);
         }
         JsonArray array = jab.build();
@@ -83,9 +85,9 @@ public class ProductResource {
 
     }
 
-    @Path("/add/{par}")
+    @Path("/add/{product}")
     @POST
-    public void addProduct(@PathParam("par") String product){
+    public void addProduct(@PathParam("product") String product){
         JsonReader jsonReader = Json.createReader(new StringReader(product));
         JsonObject object = jsonReader.readObject();
         jsonReader.close();
@@ -93,12 +95,28 @@ public class ProductResource {
         shop.getProducts().add(shop.getpDatabase().getProduct(object.getString("name")));
     }
 
-    @Path("/addOrder/{par}")
+    @Path("/delete/{id}")
     @POST
-    public void addOrder(@PathParam("par") String order){
-        JsonReader jsonReader = Json.createReader(new StringReader(order));
+    public void deleteProduct(@PathParam("id") int id){
+        shop.getpDatabase().deleteProduct(id);
+    }
+
+    @Path("/alter/{product}")
+    @POST
+    public void alterProduct(@PathParam("product") String product){
+        JsonReader jsonReader = Json.createReader(new StringReader(product));
         JsonObject object = jsonReader.readObject();
         jsonReader.close();
-        shop.addOrder(object);
+        shop.alterProduct(object);
+    }
+
+    @Path("/addOrder/{user}/{shoppingcart}")
+    @POST
+    public void addOrder(@PathParam("user") String user, @PathParam("shoppingcart") String shoppingcart){
+        JsonReader jsonReader = Json.createReader(new StringReader(shoppingcart));
+        JsonArray array = jsonReader.readArray();
+        shop.addOrder(user,array);
+        jsonReader.close();
+
     }
 }
