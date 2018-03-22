@@ -1,6 +1,7 @@
 package com.webshop.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by marti on 20-3-2018.
@@ -10,6 +11,7 @@ public class Product {
     double price;
     String name, description, catagory, picture;
     ArrayList<String> catagorys;
+    private Arrays catagorie;
 
     public Product(int id, double price, String name, String description, String catagory, String picture) {
         this.id = id;
@@ -42,5 +44,9 @@ public class Product {
 
     public String getPicture() {
         return picture;
+    }
+
+    public Arrays getCatagorie() {
+        return catagorie;
     }
 }

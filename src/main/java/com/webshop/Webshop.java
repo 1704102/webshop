@@ -5,6 +5,7 @@ import com.webshop.Database.ProductDatabase;
 import com.webshop.model.Customer;
 import com.webshop.model.Product;
 
+import javax.json.JsonObject;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -44,11 +45,8 @@ public class Webshop {
 
 
     public ArrayList<Product> getProducts(){
-        ArrayList<Product> output = new ArrayList<>();
-        for (Product product : products){
-        }
-                output.add(product);
-        return output;
+
+        return new ArrayList<>(products);
     }
 
     public ProductDatabase getpDatabase() {

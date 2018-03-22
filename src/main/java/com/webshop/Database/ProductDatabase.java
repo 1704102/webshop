@@ -4,8 +4,10 @@ import com.sun.org.apache.regexp.internal.RE;
 import com.webshop.model.Customer;
 import com.webshop.model.Product;
 
+import javax.json.JsonObject;
 import java.lang.reflect.Array;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -19,7 +21,7 @@ public class ProductDatabase extends DatabaseHelper {
         try {
             ResultSet s = select("select * from product");
             while (s.next()) {
-                products.add(new Product(s.getInt("id"), s.getInt("prijs"), s.getString("naam"),s.getString("omschrijving"),s.getString("catagorie")));
+                products.add(new Product(s.getInt("id"), s.getInt("prijs"), s.getString("naam"),s.getString("omschrijving"),s.getString("catagorie"), s.getString("picture")));
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -44,6 +46,10 @@ public class ProductDatabase extends DatabaseHelper {
         return customers;
     }
 
+    public void addOrder(JsonObject object) {
+        //execute();
+    }
+
     public boolean addCustomer(Customer customer){
         connect();
         try{
@@ -58,16 +64,16 @@ public class ProductDatabase extends DatabaseHelper {
     public int login(String username, String password) {
         connect();
         try {
-            while (s.next()){
-        ResultSet s = select(String.format("select * from klant where username = '%s' and password = '%s'",username,password));
+            ResultSet s = select(String.format("select * from klant where username = '%s' and password = '%s'", username, password));
+            while (s.next()) {
                 return s.getInt("id");
             }
         } catch (SQLException e) {
             e.printStackTrace();
-    }
+        }
         disconnect();
         return 0;
-        }
+    }
     public void addProduct(JsonObject object){
         connect();
         execute(String.format("insert into product (naam, prijs, omschrijving, catagory, plaatje) values ('%s','%s','%s','%s','%s')", object.getString("name"), object.getString("price"), object.getString("description"), object.getString("catagory"), object.getString("image")));
