@@ -1,25 +1,46 @@
 package com.webshop.model;
 
+import java.util.ArrayList;
+
 /**
  * Created by marti on 20-3-2018.
  */
 public class Product {
-    int id, prijs;
-    String naam, omschrijving, catagorie;
+    int id;
+    double price;
+    String name, description, catagory, picture;
+    ArrayList<String> catagorys;
 
-    public Product(int id, int prijs, String naam, String omschrijving, String catagorie) {
+    public Product(int id, double price, String name, String description, String catagory, String picture) {
         this.id = id;
-        this.prijs = prijs;
-        this.naam = naam;
-        this.omschrijving = omschrijving;
-        this.catagorie = catagorie;
+        this.price = Math.round(price * 100.0) / 100.0;
+        this.name = name;
+        this.description = description;
+        this.catagory = catagory;
+        this.picture = picture;
     }
 
     public int getId(){
         return id;
     }
 
-    public String getCatagorie(){
-        return catagorie;
+    public String getCatagory(){
+        return catagory;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getPicture() {
+        return picture;
     }
 }

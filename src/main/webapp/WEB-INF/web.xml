@@ -7,7 +7,7 @@
     <display-name>com.webshop</display-name>
 
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>webshop.jsp</welcome-file>
     </welcome-file-list>
 
     <servlet>

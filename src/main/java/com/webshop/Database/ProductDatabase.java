@@ -54,4 +54,23 @@ public class ProductDatabase extends DatabaseHelper {
             return false;
         }
     }
+
+    public int login(String username, String password) {
+        connect();
+        try {
+            while (s.next()){
+        ResultSet s = select(String.format("select * from klant where username = '%s' and password = '%s'",username,password));
+                return s.getInt("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+    }
+        disconnect();
+        return 0;
+        }
+    public void addProduct(JsonObject object){
+        connect();
+        execute(String.format("insert into product (naam, prijs, omschrijving, catagory, plaatje) values ('%s','%s','%s','%s','%s')", object.getString("name"), object.getString("price"), object.getString("description"), object.getString("catagory"), object.getString("image")));
+        disconnect();
+    }
 }

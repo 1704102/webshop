@@ -1,0 +1,73 @@
+#topbutton{
+	font-size: 100;
+	background-color: black;
+	height : 50px;
+	width : 50px;
+	position : absolute;
+	margin-left: 10%;
+	background-color: white;
+	background-image: url("button.png");
+}
+#topbar{
+	background: linear-gradient(90deg,rgb(2,155,73), rgb(2,151,71));
+	height : 50px;
+	color : white;
+	font-size: 250%;
+	position : absolute;
+	width: 80%;
+	margin-left: 10%;
+	
+}
+#topbar2{
+	padding-left:50px;
+	
+	
+}
+#sidebar{
+	width: 10%;
+	background-color: rgb(150,150,150);
+	position : absolute;
+}
+body{
+	background-color: rgb(150,150,150);
+}
+#mainBody{
+	background-color: rgb(50,50,50);
+
+	color : rgb(100,100,100);
+	margin-left: 10%;
+	margin-top: 50px;
+	width:80%;
+	height:90%;
+	position: absolute;
+	overflow-y: scroll
+	}
+#title{
+	width: 100%;
+	font-size:150%;
+	color: rgb(200,200,200);
+	background-color: rgb(25,25,25);
+}
+#postbody{
+	width: 100%;
+	font-size:90;
+	background-color: rgb(240,240,240);
+	border-bottom : 1px solid black;
+}
+#tabstyle{width:100%;}
+#wr40{width:40%;}
+#wr60{width:60%;}
+#wr10{width:10%;}
+#wr20{width:20%;}
+#imgsize{
+	max-width: 100%;
+	min-width: 100%;}
+td{border-style: solid;font-size: 60px; text-align: center;}
+th{border-style: solid;font-size: 60px; text-align: center;}
+
+.clickable{
+	cursor: pointer;}
+
+.imgsize2{
+	width: 50px;
+}

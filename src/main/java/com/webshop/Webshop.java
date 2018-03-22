@@ -43,4 +43,19 @@ public class Webshop {
 
 
 
+    public ArrayList<Product> getProducts(){
+        ArrayList<Product> output = new ArrayList<>();
+        for (Product product : products){
+        }
+                output.add(product);
+        return output;
+    }
+
+    public ProductDatabase getpDatabase() {
+        return pDatabase;
+    }
+
+    public void addOrder(JsonObject object) {
+        pDatabase.addOrder(object);
+    }
 }
