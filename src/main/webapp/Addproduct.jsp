@@ -55,6 +55,7 @@
             $.ajax({
                 type: "POST",
                 url: "rest/product/add/" + JSON.stringify(product),
+                succes: alert("product is toegevoegd")
             });
         }
 	</script>

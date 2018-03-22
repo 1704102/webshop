@@ -71,7 +71,7 @@
 				<table id = "tabstyle">
 
 				</table>
-
+				confirm<input type="checkbox" name="" id="check">
 				<button type = "button" onclick="submitOrder()" >submit</button>
 			</div>
 		</div>
@@ -95,14 +95,17 @@
         }
 
         function submitOrder() {
-		    var shoppingcart = JSON.parse(sessionStorage.getItem("shoppingcart"));
-		    var user = sessionStorage.getItem("user")
-            $.ajax({
-                type: "POST",
-                url: "rest/product/addOrder/" + user + "/" + JSON.stringify(shoppingcart),
-            });
-		    sessionStorage.setItem("shoppingcart", "[]");
-		    loadcart();
+            if ($('#check').is(":checked")) {
+                var shoppingcart = JSON.parse(sessionStorage.getItem("shoppingcart"));
+                var user = sessionStorage.getItem("user")
+                $.ajax({
+                    type: "POST",
+                    url: "rest/product/addOrder/" + user + "/" + JSON.stringify(shoppingcart),
+                    succes: alert("order is toegevoegd")
+                });
+                sessionStorage.setItem("shoppingcart", "[]");
+                loadcart();
+            }
         }
 
 	</script>

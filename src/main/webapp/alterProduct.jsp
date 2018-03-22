@@ -38,6 +38,7 @@
         $.ajax({
             type: "POST",
             url: "rest/product/alter/" + JSON.stringify(product),
+            succes: alert("product is gewijzigd")
         });
     }
     loadPage()
