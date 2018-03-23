@@ -8,8 +8,9 @@
 	<body>
 	<script>
         function loadcart() {
+            var total1 = 0;
             var shoppingcart = JSON.parse(sessionStorage.getItem("shoppingcart"));
-            if (shoppingcart != undefined){
+            if (shoppingcart != []){
                 $("#tabstyle").empty();
                 $("#tabstyle").append(
                     "<tr> " +
@@ -24,6 +25,7 @@
                     var price =parseFloat(shoppingcart[i].price.substr(1)) ;
                     var aantal = parseInt(shoppingcart[i].aantal);
                     var total = price * aantal;
+                    total1 += total;
                     $("#tabstyle").append(
                         "<tr>" +
                         "<td>" + shoppingcart[i].name + "</td>" +
@@ -34,12 +36,34 @@
                         "</tr>"
 
                     )
+                    $("#total").empty()
+					$("#total").append(total1);
                 }
+            }else {
+                $("#tabstyle").empty();
+			}
+            $("#total").empty();
+            $("#total").append(total1);
+        }
+        function redirect(catagory) {
+            if(catagory != "winkelwagen" && catagory != "add_order"){sessionStorage.setItem("catagory", catagory);
+                window.location.replace('http://localhost:3030/webshop.jsp')}if (catagory == "add_product") {
+                window.location.replace('http://localhost:3030/Addproduct.jsp')
+            }if (catagory == "winkelwagen") {window.location.replace('http://localhost:3030/winkelwagen.jsp')}if(catagory == "welkom"){
+                window.location.replace('http://localhost:3030/welkomspagina.jsp')
             }
         }
 	</script>
 	<div id = "sidebar">
-	Hyperlinks komen hier
+		<div class="subitem" id="welkom" onclick="redirect(this.id)">Welkoms pagina</div>
+		<div class="subitem"id="*" onclick="redirect(this.id)">Webshop	</div>
+		<div class="subitem"id="eten" onclick="redirect(this.id)">Eten</div>
+		<div class="subitem" id="electronica" onclick="redirect(this.id)">Electronica</div>
+		<div class="subitem" id="stofzuiger" onclick="redirect(this.id)">Stofzuigers</div>
+		<div class="subitem" id="schoenen" onclick="redirect(this.id)">Schoenen</div>
+		<div class="subitem" id="kleren" onclick="redirect(this.id)">Kleren</div>
+		<div class="subitem" id="winkelwagen" onclick="redirect(this.id)">Winkelwagen</div>
+		<div class="subitem" id="add_product" onclick="redirect(this.id)">Product toevoegen</div>
 	</div>
 	<div id = "topbar"><div id= "topbar2">winkelwagen</div></div>
 		<div id = "mainBody">
@@ -47,16 +71,8 @@
 				<table id = "tabstyle">
 
 				</table>
-				Totaalprijs : Prijs
-				<p>
-				Straatnaam<br>
-				<input type ='text' id='Adress'></input><br>
-				Huisnummer<br>
-				<input type ='text' id='huisnummer'></input><br>
-				Stad<br>
-				<input type ='text' id='stad'></input>
-				</p>
-				<button type = "button">submit</button>
+				confirm<input type="checkbox" name="" id="check">
+				<button type = "button" onclick="submitOrder()" >submit</button>
 			</div>
 		</div>
 	</div>
@@ -79,13 +95,17 @@
         }
 
         function submitOrder() {
-		    var shoppingcart = JSON.parse(sessionStorage.getItem("shoppingcart"));
-		    var userData = {""}
-            var product = {"name" : $("#name").val(), "price" : $("#price").val(),"image" : $("#image").val(), "catagory" : $("#catagory").val(), "description" : $("#description").val()};
-            $.ajax({
-                type: "POST",
-                url: "rest/product/add/" + JSON.stringify(product),
-            });
+            if ($('#check').is(":checked")) {
+                var shoppingcart = JSON.parse(sessionStorage.getItem("shoppingcart"));
+                var user = sessionStorage.getItem("user")
+                $.ajax({
+                    type: "POST",
+                    url: "rest/product/addOrder/" + user + "/" + JSON.stringify(shoppingcart),
+                    succes: alert("order is toegevoegd")
+                });
+                sessionStorage.setItem("shoppingcart", "[]");
+                loadcart();
+            }
         }
 
 	</script>

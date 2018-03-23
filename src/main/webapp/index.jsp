@@ -31,7 +31,7 @@
                 success: function(data){
                     if (data > 0){
                         sessionStorage.setItem("user", data);
-                        window.location.replace('http://localhost:3030/webshop.jsp')
+                        window.location.replace('http://localhost:3030/welkomspagina.jsp')
                     }
                 }
             });

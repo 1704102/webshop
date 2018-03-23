@@ -11,7 +11,7 @@ public class Product {
     double price;
     String name, description, catagory, picture;
     ArrayList<String> catagorys;
-    private Arrays catagorie;
+    boolean aanbieding = false;
 
     public Product(int id, double price, String name, String description, String catagory, String picture) {
         this.id = id;
@@ -46,7 +46,15 @@ public class Product {
         return picture;
     }
 
-    public Arrays getCatagorie() {
-        return catagorie;
+    public boolean isAanbieding() {
+        return aanbieding;
+    }
+
+    public void setAanbieding(boolean aanbieding) {
+        this.aanbieding = aanbieding;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }
