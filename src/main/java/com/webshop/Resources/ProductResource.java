@@ -24,7 +24,7 @@ public class ProductResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String Login() {
+    public String getProducts() {
         ArrayList<Product> products = shop.getProducts();
         JsonArrayBuilder jab = Json.createArrayBuilder();
         for (int i = 0; i < products.size(); i++) {
@@ -60,7 +60,7 @@ public class ProductResource {
     @Path("/id/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String Login(@PathParam("id") int id) {
+    public String getProduct(@PathParam("id") int id) {
         Product product = shop.getProductById(id);
         JsonObjectBuilder job = Json.createObjectBuilder();
         job.add("id", product.getId());
@@ -76,7 +76,7 @@ public class ProductResource {
     @Path("/login/{username}/{password}")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public int Login(@PathParam("username") String username,@PathParam("password") String password) {
+    public int login(@PathParam("username") String username,@PathParam("password") String password) {
 
         return shop.getpDatabase().login(username, password);
 
@@ -108,8 +108,7 @@ public class ProductResource {
         JsonReader jsonReader = Json.createReader(new StringReader(product));
         JsonObject object = jsonReader.readObject();
         jsonReader.close();
-        shop.getpDatabase().addProduct(object);
-        shop.getProducts().add(shop.getpDatabase().getProduct(object.getString("name")));
+       shop.addProduct(object);
     }
 
     @Path("/delete/{id}")

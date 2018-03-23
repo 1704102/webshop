@@ -1,26 +1,9 @@
 package com.webshop;
-
-import com.sun.org.apache.xml.internal.serialize.OutputFormat;
-import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 import com.webshop.Database.Aanbieding;
 import com.webshop.Database.ProductDatabase;
 import com.webshop.model.Customer;
 import com.webshop.model.Product;
-import jdk.internal.org.xml.sax.InputSource;
-import jdk.internal.org.xml.sax.SAXException;
-import org.w3c.dom.NodeList;
-
 import javax.json.*;
-import javax.swing.text.Document;
-import javax.xml.namespace.QName;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.ws.Service;
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 
 /**
@@ -40,6 +23,11 @@ public class Webshop {
             getProductById(e.getId()).setAanbieding(true);
             getProductById(e.getId()).setPrice(e.getPrijs());
         });
+    }
+
+    public void addProduct(JsonObject object){
+        pDatabase.addProduct(object);
+        products.add(pDatabase.getProduct(object.getString("name")));
     }
 
     public ArrayList<Product> getProducts(){
