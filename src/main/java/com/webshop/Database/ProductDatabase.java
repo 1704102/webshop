@@ -1,19 +1,19 @@
 package com.webshop.Database;
 
-import com.sun.org.apache.regexp.internal.RE;
 import com.webshop.OrderLine;
 import com.webshop.model.Product;
 
 import javax.json.JsonObject;
-import java.lang.reflect.Array;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
  * Created by marti on 20-3-2018.
  */
+
+
+// prepared statement
 public class ProductDatabase extends DatabaseHelper {
 
     public ArrayList<Product> getProducts(){
