@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/webappRunnerSample.iml" filepath="$PROJECT_DIR$/webappRunnerSample.iml" />
-      <module fileurl="file://C:\Users\marti\IdeaProjects\webshop\webshop.iml" filepath="C:\Users\marti\IdeaProjects\webshop\webshop.iml" />
-    </modules>
-  </component>
-</project>
