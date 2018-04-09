@@ -1,31 +1,44 @@
 package com.webshop;
-import com.webshop.Database.Aanbieding;
-import com.webshop.Database.ProductDatabase;
-import com.webshop.model.Customer;
-import com.webshop.model.Product;
-import javax.json.*;
-import java.util.ArrayList;
+import com.webshop.Model.Aanbieding;
+import com.webshop.Model.Customer;
+import com.webshop.Model.Product;
+import org.javalite.activejdbc.Base;
+import org.javalite.activejdbc.DB;
+import org.javalite.activejdbc.LazyList;
 
 /**
  * Created by marti on 20-3-2018.
  */
 public class Webshop {
-    ProductDatabase pDatabase = new ProductDatabase();
 
-    ArrayList<Customer> customers;
-    ArrayList<Product> products;
-    ArrayList<Aanbieding> aanbiedings;
+    private LazyList<Customer> customers;
+    private LazyList<Product> products;
+    private LazyList<Aanbieding> aanbiedings;
 
-    public Webshop(){
-        products = pDatabase.getProducts();
-        aanbiedings = getpDatabase().getAanbiedingen();
-        aanbiedings.forEach(e->{
-            getProductById(e.getId()).setAanbieding(true);
-            getProductById(e.getId()).setPrice(e.getPrijs());
-        });
+    public LazyList<Customer> getCustomers() {
+        return customers;
+    }
+    public LazyList<Product> getProducts() {
+        return products;
+    }
+    public LazyList<Aanbieding> getAanbiedings() {
+        return aanbiedings;
     }
 
-    public void addProduct(JsonObject object){
+
+
+
+    public Webshop(){
+        Base.open();
+
+        products = Product.findAll();
+        aanbiedings = Aanbieding.findAll();
+        customers = Customer.findAll();
+        DB.closeAllConnections();
+        //TODO: find all products with aanbieding
+    }
+
+    /*public void addProduct(JsonObject object){
         pDatabase.addProduct(object);
         products.add(pDatabase.getProduct(object.getString("name")));
     }
@@ -115,5 +128,5 @@ public class Webshop {
         s =  s.substring(0, s.length() - 1);
         s= s + " where id = " + id;
         pDatabase.alterProduct(s);
-    }
+    }*/
 }

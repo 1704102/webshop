@@ -1,12 +1,15 @@
+/*
 package com.webshop.Database;
 
 import com.webshop.model.Product;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
+*/
 /**
  * Created by marti on 23-3-2018.
- */
+ *//*
+
 public class ProductDatabaseTest extends TestCase {
     public void testGetProduct() throws Exception {
         ProductDatabase dat = new ProductDatabase();
@@ -20,4 +23,4 @@ public class ProductDatabaseTest extends TestCase {
         Assert.assertEquals(p.getPicture(),expected.getPicture());
     }
 
-}
+}*/

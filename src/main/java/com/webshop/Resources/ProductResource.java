@@ -1,13 +1,15 @@
 package com.webshop.Resources;
 
 import com.webshop.Webshop;
-import com.webshop.model.Product;
+import com.webshop.Model.Product;
+import org.javalite.activejdbc.Base;
+import org.javalite.activejdbc.LazyList;
 
-import javax.json.*;
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.io.StringReader;
-import java.util.ArrayList;
 
 
 /**
@@ -16,16 +18,21 @@ import java.util.ArrayList;
 @Path("product")
 public class ProductResource {
 
-    Webshop shop;
+    private Webshop shop;
 
     public ProductResource(){
-        shop = new Webshop();
+        /*shop = new Webshop();*/
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getProducts() {
-        ArrayList<Product> products = shop.getProducts();
+        Base.open();
+        LazyList products = Product.findAll();
+        String json = products.toJson(true);
+        Base.close();
+        return json;
+        /*ArrayList<Product> products = shop.getProducts();
         JsonArrayBuilder jab = Json.createArrayBuilder();
         for (int i = 0; i < products.size(); i++) {
             JsonObjectBuilder job = Json.createObjectBuilder();
@@ -36,10 +43,19 @@ public class ProductResource {
             jab.add(job);
         }
         JsonArray array = jab.build();
-        return array.toString();
+        return array.toString();*/
     }
 
-    @GET
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public String postProducts(){
+        Base.open();
+        return "";
+    }
+
+
+
+    /*@GET
     @Path("/aanbieding")
     @Produces(MediaType.APPLICATION_JSON)
     public String Aanbieding() {
@@ -134,5 +150,5 @@ public class ProductResource {
         shop.addOrder(user,array);
         jsonReader.close();
 
-    }
+    }*/
 }

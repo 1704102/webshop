@@ -6,6 +6,7 @@ import junit.framework.TestCase;
 /**
  * Created by marti on 23-3-2018.
  */
+/*
 public class ProductResourceTest extends TestCase {
     public void testLogin() throws Exception {
         int expected = 2;
@@ -21,4 +22,4 @@ public class ProductResourceTest extends TestCase {
         Assert.assertEquals(product,expected);
     }
 
-}
+}*/

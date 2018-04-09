@@ -1,16 +1,19 @@
+/*
 package com.webshop.Database;
 
 import com.webshop.OrderLine;
+import com.webshop.model.Aanbieding;
 import com.webshop.model.Product;
 
-import javax.json.JsonObject;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+*/
 /**
  * Created by marti on 20-3-2018.
- */
+ *//*
+
 
 
 // prepared statement
@@ -133,4 +136,4 @@ public class ProductDatabase extends DatabaseHelper {
         disconnect();
         return aanbiedingen;
     }
-}
+}*/
