@@ -34,8 +34,12 @@ public class RproductsController extends AppController {
         }else{
             view("product", p);
         }
+    }
+
+    public void newForm(){
 
     }
+
     public void destroy(){
         Product.delete("id = ?", param("id"));
         flash("product_deleted", "Your product was deleted");
