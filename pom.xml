@@ -37,38 +37,6 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.javalite</groupId>
-                <artifactId>db-migrator-maven-plugin</artifactId>
-                <version>2.0</version>
-                <configuration>
-                    <configFile>
-                        ${project.basedir}/src/main/resources/database.properties
-                    </configFile>
-                    <environments>${environments}</environments>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>dev_migrations</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>migrate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.postgresql</groupId>
-                        <artifactId>postgresql</artifactId>
-                        <version>9.3-1102-jdbc4</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>mysql</groupId>
-                        <artifactId>mysql-connector-java</artifactId>
-                        <version>5.1.34</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.18.1</version>
@@ -109,6 +77,27 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <configuration>
+                    <reload>manual</reload>
+                    <scanIntervalSeconds>10000</scanIntervalSeconds>
+                    <systemProperties>
+                        <systemProperty>
+                            <name>activejdbc.log</name>
+                        </systemProperty>
+                        <systemProperty>
+                            <name>active_reload</name>
+                            <value>true</value>
+                        </systemProperty>
+                        <systemProperty>
+                            <name>activeweb.log.request</name>
+                            <value>true</value>
+                        </systemProperty>
+                    </systemProperties>
+                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -214,6 +203,16 @@
             <groupId>org.javalite</groupId>
             <artifactId>activeweb</artifactId>
             <version>2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+            <version>9.4.8.v20171121</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-webapp</artifactId>
+            <version>9.4.8.v20171121</version>
         </dependency>
     </dependencies>
     <repositories>
