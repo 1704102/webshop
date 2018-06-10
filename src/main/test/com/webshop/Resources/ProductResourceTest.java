@@ -8,7 +8,7 @@ import junit.framework.TestCase;
  */
 public class ProductResourceTest extends TestCase {
     public void testLogin() throws Exception {
-        int expected = 2;
+        int expected = 1;
         ProductResource r = new ProductResource();
         int login = r.login("martijn", "0000");
         Assert.assertEquals(expected,login);

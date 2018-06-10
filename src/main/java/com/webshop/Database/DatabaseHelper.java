@@ -7,7 +7,7 @@ import java.sql.*;
  * Created by marti on 20-1-2017.
  */
 public class DatabaseHelper {
-    String host="159.65.202.137";                               //server host name
+    String host="206.189.4.53";                               //server host name
     String user="postgres";                                            //username
     String pass="";                                        //password
     String DBName="webshop";                                        //database name
